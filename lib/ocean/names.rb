@@ -7,7 +7,7 @@ module Ocean
 
     def self.reverse_geocode(lat:, lng:)
       shapes.find do |record|
-        record.geometry.contains?(point(121, 25.34)) rescue nil
+        record.geometry.contains?(point(lat, lng)) rescue nil
       end&.attributes
     end
 
