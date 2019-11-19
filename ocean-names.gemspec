@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["rafael"]
   spec.email         = ["skcc321@gmail.com"]
 
-  spec.summary       = %q{get ocean names from coordinates}
-  spec.description   = %q{get ocean names from coordinates}
+  spec.summary       = %q{reverse geocode oceans/seas names}
+  spec.description   = %q{get oceans/seas names from coordinates}
   spec.homepage      = "https://github.com/skcc321/ocean-names"
   spec.license       = "MIT"
 
