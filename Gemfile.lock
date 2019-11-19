@@ -1,9 +1,9 @@
 PATH
   remote: .
   specs:
-    ocean-names (0.1.1)
-      geokit
-      oj
+    ocean-names (0.2.1)
+      geokit (~> 1.13)
+      oj (~> 3.3)
 
 GEM
   remote: https://rubygems.org/
@@ -37,7 +37,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 2.0)
   ocean-names!
-  pry
+  pry (~> 0.12.2)
   rake (~> 10.0)
   rspec (~> 3.0)
 
