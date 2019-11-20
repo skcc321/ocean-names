@@ -17,31 +17,31 @@ RSpec.describe Ocean::Names, :aggregate_failures do
 
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
-          "ID" => "49",
-          "Latitude" => 11.77674997246,
-          "Longitude" => 112.30802222078,
-          "MRGID" => 4332,
-          "NAME" => "South China Sea",
+          "id" => "49",
+          "latitude" => 11.77674997246,
+          "longitude" => 112.30802222078,
+          "mrgid" => 4332,
+          "name" => "South China Sea",
           "area" => 3362904,
-          "max_X" => 122.15129880188,
-          "max_Y" => 25.5672843459,
-          "min_X" => 102.2384721041,
-          "min_Y" => -3.22872316783,
+          "max_x" => 122.15129880188,
+          "max_y" => 25.5672843459,
+          "min_x" => 102.2384721041,
+          "min_y" => -3.22872316783,
         })
       end
 
       false_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
-          "ID" => "49",
-          "Latitude" => 11.77674997246,
-          "Longitude" => 112.30802222078,
-          "MRGID" => 4332,
-          "NAME" => "South China Sea",
+          "id" => "49",
+          "latitude" => 11.77674997246,
+          "longitude" => 112.30802222078,
+          "mrgid" => 4332,
+          "name" => "South China Sea",
           "area" => 3362904,
-          "max_X" => 122.15129880188,
-          "max_Y" => 25.5672843459,
-          "min_X" => 102.2384721041,
-          "min_Y" => -3.22872316783,
+          "max_x" => 122.15129880188,
+          "max_y" => 25.5672843459,
+          "min_x" => 102.2384721041,
+          "min_y" => -3.22872316783,
         })
       end
     end
