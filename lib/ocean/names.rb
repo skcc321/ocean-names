@@ -27,11 +27,7 @@ module Ocean
     end
 
     def self.data
-      @data || load_data
-    end
-
-    def self.load_data
-      @data = Oj.load(File.read("data/water.json"))
+      @data ||= Oj.load(File.read(File.expand_path("../../../data/water.json", __FILE__)))
     end
   end
 end
