@@ -17,10 +17,8 @@ RSpec.describe Ocean::Names, :aggregate_failures do
 
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
-          "id" => "49",
           "latitude" => 11.77674997246,
           "longitude" => 112.30802222078,
-          "mrgid" => 4332,
           "name" => "South China Sea",
           "area" => 3362904,
           "max_x" => 122.15129880188,
@@ -32,10 +30,8 @@ RSpec.describe Ocean::Names, :aggregate_failures do
 
       false_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
-          "id" => "49",
           "latitude" => 11.77674997246,
           "longitude" => 112.30802222078,
-          "mrgid" => 4332,
           "name" => "South China Sea",
           "area" => 3362904,
           "max_x" => 122.15129880188,

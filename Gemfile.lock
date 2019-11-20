@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ocean-names (0.2.2)
+    ocean-names (0.2.4)
       geokit (~> 1.13)
       oj (~> 3.3)
 
