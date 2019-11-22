@@ -1,6 +1,6 @@
 # Ocean::Names
 
-Simple reverse geocoder for oceans/seas.
+Simple & fast enough (production ready & offline) reverse geocoder for oceans/seas.
 
 ## Installation
 
