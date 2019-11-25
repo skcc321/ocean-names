@@ -2,6 +2,8 @@ require "bundler/setup"
 require "ocean/names"
 require "pry"
 require "yaml"
+require "simplecov"
+SimpleCov.start
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
