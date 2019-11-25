@@ -67,7 +67,7 @@ jobs:
 
     steps:
       - attach_workspace:
-        working_directory: ~/repo
+          at: ~/repo
       - run:
           name: Install Code Climate Test Reporter
           command: |
