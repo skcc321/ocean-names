@@ -1,65 +1,88 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
 version: 2
 jobs:
   build:
+    working_directory: ~/repo
+    parallelism: 4
+    shell: /bin/bash --login
+    environment:
+      RAILS_ENV: test
+      RACK_ENV: test
+      COVERAGE: true
+      TZ: /usr/share/zoneinfo/America/Chicago
     docker:
-      # specify the version you desire here
       - image: circleci/ruby:2.6.5
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            # This branch if available
+            - v2-dep-{{ .Branch }}-
+            # Default branch if not
+            - v2-dep-master-
+            # Any branch if there are none on the default branch - this should be unnecessary if you have your default branch configured correctly
+            - v2-dep-
+      - run:
+          name: install bundler
+          command: gem install bundler
+      - run:
+          name: bundle gems
+          command: bundle install --path=vendor/bundle --jobs=4 --retry=3
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Run tests
+          command: |
+            mkdir -p test-results/rspec test-artifacts
+            ./cc-test-reporter before-build
+            TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+            bundle exec rspec --profile 10 \
+                              --color \
+                              --order random \
+                              --format RspecJunitFormatter \
+                              --out test-results/rspec/rspec.xml \
+                              --format progress \
+                              -- ${TESTFILES}
+      - run:
+          name: Code Climate Test Coverage
+          command: |
+            ./cc-test-reporter format-coverage -t simplecov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-artifacts
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/postgres:9.4
-
+  upload-coverage:
+    docker:
+      - image: circleci/ruby:2.6.5
+    environment:
+      CC_TEST_REPORTER_ID: 568eec2f9aed445a55cc62e3ef99186d51dda170c5ee394690d1fe4034e194fd
     working_directory: ~/repo
 
     steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
+      - attach_workspace:
+        working_directory: ~/repo
       - run:
-          name: install dependencies
+          name: Install Code Climate Test Reporter
           command: |
-            gem update --system
-            gem install bundler
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-
-      - save_cache:
-          paths:
-            - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-
-      # Database setup
-      # - run: bundle exec rake db:create
-      # - run: bundle exec rake db:schema:load
-
-      # run tests!
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
       - run:
-          name: run tests
           command: |
-            mkdir /tmp/test-results
-            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | \
-              circleci tests split --split-by=timings)"
+            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
 
-            bundle exec rspec \
-              --format progress \
-              --format RspecJunitFormatter \
-              --out /tmp/test-results/rspec.xml \
-              --format progress \
-              $TEST_FILES
+workflows:
+  version: 2
 
-      # collect reports
-      - store_test_results:
-          path: /tmp/test-results
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: test-results
+  commit:
+    jobs:
+      - build
+      - upload-coverage:
+          requires:
+             - build
