@@ -28,6 +28,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
         })
       end
 
+      # TODO exclude islands
       false_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
           "latitude" => 11.77674997246,
