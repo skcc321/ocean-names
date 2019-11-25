@@ -1,5 +1,6 @@
 # Ocean::Names
 
+[![Gem Version](https://badge.fury.io/rb/ocean-names.svg)](https://badge.fury.io/rb/ocean-names)
 [![CircleCI](https://circleci.com/gh/skcc321/ocean-names/tree/master.svg?style=svg)](https://circleci.com/gh/skcc321/ocean-names/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/1f06ba3f12a4408c402b/maintainability)](https://codeclimate.com/github/skcc321/ocean-names/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/1f06ba3f12a4408c402b/test_coverage)](https://codeclimate.com/github/skcc321/ocean-names/test_coverage)
