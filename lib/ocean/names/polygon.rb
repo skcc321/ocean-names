@@ -17,14 +17,14 @@ module Ocean
         y = lat
 
         @points.each do |p|
-          # p = [lat, lng]
-          y1 = p.first
-          x1 = p.last
-          y2 = last_point.first
-          x2 = last_point.last
+          # p = [lng, lat]
+          x1 = p.first
+          y1 = p.last
+          x2 = last_point.first
+          y2 = last_point.last
 
-          if y1 < y && y2 >= y || y2 < y && y1 >= y
-            odd_node = !odd_node if x1 + (y - y1) / (y2 - y1) * (x2 - x1) < x
+          if x1 < x && x2 >= x || x2 < x && x1 >= x
+            odd_node = !odd_node if y1 + (x - x1) / (x2 - x1) * (y2 - y1) < y
           end
 
           last_point = p

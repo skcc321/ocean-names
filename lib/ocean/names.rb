@@ -26,7 +26,7 @@ module Ocean
     def self.reverse_geocode(lat:, lng:)
       rec = data.find do |record|
         # avoid check of obviously false geometries
-        next unless WITHIN_BOUNDS.(record, lat, lng)
+        next unless WITHIN_BOUNDS.(record, lng, lat)
 
         # get points from nested arrays
         points = GET_POINTS.(record["geometry"])
