@@ -1,17 +1,21 @@
+# frozen_string_literal: true
+
 require "ocean/names/version"
+require "ocean/names/polygon"
 require "oj"
-require "geokit"
 
 module Ocean
   module Names
     class Error < StandardError; end
 
+    # drill down to main geometry points array
     GET_POINTS = ->(arg) {
       return arg unless arg.first.first.is_a?(Array)
 
       GET_POINTS.(arg.first)
     }
 
+    # check bounds to avoid
     WITHIN_BOUNDS = ->(record, x, y) {
       record["min_x"] <= x &&
       record["max_x"] >= x &&
@@ -20,18 +24,14 @@ module Ocean
     }
 
     def self.reverse_geocode(lat:, lng:)
-      point = Geokit::LatLng.new(lat, lng)
-
       rec = data.find do |record|
         # avoid check of obviously false geometries
         next unless WITHIN_BOUNDS.(record, lat, lng)
 
         # get points from nested arrays
-        source = GET_POINTS.(record["geometry"])
-
-        points = source.map { |x| Geokit::LatLng.new(*x) }
-        polygon = Geokit::Polygon.new(points)
-        polygon.contains?(point)
+        points = GET_POINTS.(record["geometry"])
+        polygon = Ocean::Names::Polygon.new(points)
+        polygon.contains?(lat: lat, lng: lng)
       end
 
       rec&.reject do |key|
