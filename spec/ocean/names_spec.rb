@@ -11,13 +11,13 @@ RSpec.describe Ocean::Names, :aggregate_failures do
     it "detects South China Sea" do
 
       true_points = [
-        { lat: 121, lng: 25.34 },
-        { lat: 109, lng: -2 },
-        { lat: 106.875430, lng: -1.150539 }
+        { lng: 121, lat: 25.34 },
+        { lng: 109, lat: -2 },
+        { lng: 106.875430, lat: -1.150539 }
       ]
 
       false_points = [
-        { lat: 109.709, lng: 19.316 },
+        { lng: 109.709, lat: 19.316 },
       ]
 
       true_points.each do |point|
@@ -50,7 +50,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
 
     it "detects Black Sea" do
       true_points = [
-        { lat: 32.875131, lng: 45.958505 }
+        { lng: 32.875131, lat: 45.958505 }
       ]
 
       true_points.each do |point|
@@ -69,7 +69,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
 
     it "detects Irish Sea and St. George's Channel" do
       true_points = [
-        { lat: -2.971340, lng: 54.102678 }
+        { lng: -2.971340, lat: 54.102678 }
       ]
 
       true_points.each do |point|
