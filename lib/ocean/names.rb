@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "ocean/names/version"
 require "ocean/names/polygon"
 require "oj"

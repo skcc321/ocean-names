@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require "spec_helper"
+
 RSpec.describe Ocean::Names, :aggregate_failures do
   it "has a version number" do
     expect(Ocean::Names::VERSION).not_to be nil
