@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ocean-names (0.4.5)
+    ocean-names (0.4.6)
       oj (~> 3.3)
 
 GEM

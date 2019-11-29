@@ -2,6 +2,6 @@
 
 module Ocean
   module Names
-    VERSION = "0.4.6"
+    VERSION = "0.4.7"
   end
 end
