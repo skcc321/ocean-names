@@ -25,13 +25,15 @@ module Ocean
 
     def self.reverse_geocode(lat:, lng:)
       rec = data.find do |record|
-        # avoid check of obviously false geometries
-        next unless WITHIN_BOUNDS.(record, lng, lat)
+        record["geometry"].any? do |geometry|
+          # avoid check of obviously false geometries
+          next unless WITHIN_BOUNDS.(record, lng, lat)
 
-        # get points from nested arrays
-        points = GET_POINTS.(record["geometry"])
-        polygon = Ocean::Names::Polygon.new(points)
-        polygon.contains?(lat: lat, lng: lng)
+          # get points from nested arrays
+          points = GET_POINTS.(geometry)
+          polygon = Ocean::Names::Polygon.new(points)
+          polygon.contains?(lat: lat, lng: lng)
+        end
       end
 
       rec&.reject do |key|
