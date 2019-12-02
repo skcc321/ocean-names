@@ -17,10 +17,14 @@ module Ocean
 
     # check bounds to avoid
     WITHIN_BOUNDS = ->(record, x, y) {
-      record["min_x"] <= x &&
-      record["max_x"] >= x &&
-      record["min_y"] <= y &&
-      record["max_y"] >= y
+      case record["name"]
+      when /Pacific Ocean/ then true # exception of this rule
+      else
+        [record["min_x"], record["max_x"]].min <= x &&
+          [record["min_x"], record["max_x"]].max >= x &&
+          [record["min_y"], record["max_y"]].min <= y &&
+          [record["min_y"], record["max_y"]].max >= y
+      end
     }
 
     def self.reverse_geocode(lat:, lng:)

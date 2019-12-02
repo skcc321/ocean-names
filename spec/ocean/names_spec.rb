@@ -6,7 +6,6 @@ RSpec.describe Ocean::Names, :aggregate_failures do
   it "has a version number" do
     expect(Ocean::Names::VERSION).not_to be nil
   end
-[-24.756693, -142.579988]
 
   describe "#reverse_geocode" do
     it "detects Pacific Ocean" do
@@ -24,6 +23,25 @@ RSpec.describe Ocean::Names, :aggregate_failures do
           "min_x" => -146.487909061,
           "min_y" => -60,
           "name" => "South Pacific Ocean",
+        })
+      end
+    end
+
+    it "detects Pacific Ocean" do
+      true_points = [
+        { lng: 140.974083, lat: 33.712128 },
+      ]
+
+      true_points.each do |point|
+        expect(described_class.reverse_geocode(point)).to eq({
+          "area" => 65154681,
+          "latitude" => 23.9623940894,
+          "longitude" => -40.1574405109,
+          "max_x" => 128.686531125,
+          "max_y" => 58.211545022,
+          "min_x" => -76.9854403734,
+          "min_y" => 2.0e-11,
+          "name" => "North Pacific Ocean",
         })
       end
     end
