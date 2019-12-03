@@ -16,12 +16,12 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
           "area" => 76681173,
-          "latitude" => -30.4571931405,
-          "longitude" => -82.4547794492,
-          "max_x" => 130.111292124,
-          "max_y" => 3.39114419316,
-          "min_x" => -146.487909061,
-          "min_y" => -60,
+          "lat" => -30.4571931405,
+          "lng" => -82.4547794492,
+          "max_lat" => 3.39114419316023,
+          "max_lng" => 180.0,
+          "min_lat" => -59.99999999999988,
+          "min_lng" => -180.0,
           "name" => "South Pacific Ocean",
         })
       end
@@ -35,53 +35,34 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
           "area" => 65154681,
-          "latitude" => 23.9623940894,
-          "longitude" => -40.1574405109,
-          "max_x" => 128.686531125,
-          "max_y" => 58.211545022,
-          "min_x" => -76.9854403734,
-          "min_y" => 2.0e-11,
+          "lat" => 23.9623940894,
+          "lng" => -40.1574405109,
+          "max_lat" => 58.211545022054,
+          "max_lng" => 180.0,
+          "min_lat" => 2.09739215129923e-11,
+          "min_lng" => -180,
           "name" => "North Pacific Ocean",
         })
       end
     end
 
     it "detects South China Sea" do
-
       true_points = [
         { lng: 121, lat: 25.34 },
         { lng: 109, lat: -2 },
         { lng: 106.875430, lat: -1.150539 }
       ]
 
-      false_points = [
-        { lng: 109.709, lat: 19.316 },
-      ]
-
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
-          "latitude" => 11.77674997246,
-          "longitude" => 112.30802222078,
-          "name" => "South China Sea",
           "area" => 3362904,
-          "max_x" => 122.15129880188,
-          "max_y" => 25.5672843459,
-          "min_x" => 102.2384721041,
-          "min_y" => -3.22872316783,
-        })
-      end
-
-      # TODO exclude islands
-      false_points.each do |point|
-        expect(described_class.reverse_geocode(point)).to eq({
-          "latitude" => 11.77674997246,
-          "longitude" => 112.30802222078,
+          "lat" => 11.77674997246,
+          "lng" => 112.30802222078,
+          "max_lat" => 25.5278412105036,
+          "max_lng" => 122.151298801884,
+          "min_lat" => -3.22872316782812,
+          "min_lng" => 102.238472104104,
           "name" => "South China Sea",
-          "area" => 3362904,
-          "max_x" => 122.15129880188,
-          "max_y" => 25.5672843459,
-          "min_x" => 102.2384721041,
-          "min_y" => -3.22872316783,
         })
       end
     end
@@ -94,13 +75,13 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
           "area" => 423026,
-          "latitude" => 43.2765240426,
-          "longitude" => 34.1751334089,
+          "lat" => 43.2765240426,
+          "lng" => 34.1751334089,
+          "max_lat" => 47.0198968650484,
+          "max_lng" => 41.7782796622767,
+          "min_lat" => 40.9095925090871,
+          "min_lng" => 27.4464802739456,
           "name" => "Black Sea",
-          "max_x" => 42.35496044187,
-          "max_y" => 47.31029641635,
-          "min_x" => 27.44371211572,
-          "min_y" => 40.90875351446,
         })
       end
     end
@@ -113,12 +94,12 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       true_points.each do |point|
         expect(described_class.reverse_geocode(point)).to eq({
           "area" => 45922,
-          "latitude" => 53.4459472219,
-          "longitude" => -4.79817510558,
-          "max_x" => -2.63917434252,
-          "max_y" => 55.00417602071,
-          "min_x" => -6.56905257671,
-          "min_y" => 51.90413734476,
+          "lat" => 53.4459472219,
+          "lng" => -4.79817510558,
+          "max_lat" => 54.9867891074314,
+          "max_lng" => -2.75243687656052,
+          "min_lat" => 51.9041373447589,
+          "min_lng" => -6.46759235850053,
           "name" => "Irish Sea and St. George's Channel",
         })
       end

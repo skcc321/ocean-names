@@ -17,14 +17,10 @@ module Ocean
 
     # check bounds to avoid
     WITHIN_BOUNDS = ->(record, x, y) {
-      case record["name"]
-      when /Pacific Ocean/ then true # exception of this rule
-      else
-        [record["min_x"], record["max_x"]].min <= x &&
-          [record["min_x"], record["max_x"]].max >= x &&
-          [record["min_y"], record["max_y"]].min <= y &&
-          [record["min_y"], record["max_y"]].max >= y
-      end
+      record["min_lng"] <= x &&
+      record["max_lng"] >= x &&
+      record["min_lat"] <= y &&
+      record["max_lat"] >= y
     }
 
     def self.reverse_geocode(lat:, lng:)
@@ -45,8 +41,12 @@ module Ocean
       end
     end
 
+    def self.file
+      File.expand_path("../../data/water.json", File.dirname(__FILE__))
+    end
+
     def self.data
-      @data ||= Oj.load(File.read(File.expand_path("../../data/water.json", File.dirname(__FILE__))))
+      @data ||= Oj.load(File.read(file))
     end
   end
 end
