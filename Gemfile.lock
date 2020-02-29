@@ -16,7 +16,7 @@ GEM
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
-    rake (10.5.0)
+    rake (13.0.1)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -45,7 +45,7 @@ DEPENDENCIES
   bundler (~> 2.0)
   ocean-names!
   pry (~> 0.12.2)
-  rake (~> 10.0)
+  rake (~> 13.0)
   rspec (~> 3.0)
   rspec_junit_formatter (~> 0.4.1)
   simplecov (~> 0.17.1)
