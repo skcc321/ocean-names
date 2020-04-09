@@ -1,10 +1,10 @@
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "ocean/names/version"
+require "ocean_names/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ocean-names"
-  spec.version       = Ocean::Names::VERSION
+  spec.version       = OceanNames::VERSION
   spec.authors       = ["rafael"]
   spec.email         = ["skcc321@gmail.com"]
 

@@ -2,9 +2,9 @@
 
 require "spec_helper"
 
-RSpec.describe Ocean::Names, :aggregate_failures do
+RSpec.describe OceanNames, :aggregate_failures do
   it "has a version number" do
-    expect(Ocean::Names::VERSION).not_to be nil
+    expect(OceanNames::VERSION).not_to be nil
   end
 
   describe "#reverse_geocode" do
@@ -14,7 +14,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       ]
 
       true_points.each do |point|
-        expect(described_class.reverse_geocode(point)).to eq({
+        expect(described_class.reverse_geocode(**point)).to eq({
           "area" => 76681173,
           "lat" => -30.4571931405,
           "lng" => -82.4547794492,
@@ -33,13 +33,13 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       ]
 
       true_points.each do |point|
-        expect(described_class.reverse_geocode(point)).to eq({
+        expect(described_class.reverse_geocode(**point)).to eq({
           "area" => 65154681,
           "lat" => 23.9623940894,
           "lng" => -40.1574405109,
           "max_lat" => 58.211545022054,
           "max_lng" => 180.0,
-          "min_lat" => 2.09739215129923e-11,
+          "min_lat" => 2.0973921512992298e-11,
           "min_lng" => -180,
           "name" => "North Pacific Ocean",
         })
@@ -54,7 +54,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       ]
 
       true_points.each do |point|
-        expect(described_class.reverse_geocode(point)).to eq({
+        expect(described_class.reverse_geocode(**point)).to eq({
           "area" => 3362904,
           "lat" => 11.77674997246,
           "lng" => 112.30802222078,
@@ -73,7 +73,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       ]
 
       true_points.each do |point|
-        expect(described_class.reverse_geocode(point)).to eq({
+        expect(described_class.reverse_geocode(**point)).to eq({
           "area" => 423026,
           "lat" => 43.2765240426,
           "lng" => 34.1751334089,
@@ -92,7 +92,7 @@ RSpec.describe Ocean::Names, :aggregate_failures do
       ]
 
       true_points.each do |point|
-        expect(described_class.reverse_geocode(point)).to eq({
+        expect(described_class.reverse_geocode(**point)).to eq({
           "area" => 45922,
           "lat" => 53.4459472219,
           "lng" => -4.79817510558,
