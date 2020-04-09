@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "ocean/names"
+require "ocean_names"
 require "pry"
 require "yaml"
 require "simplecov"
