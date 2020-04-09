@@ -28,7 +28,7 @@ Or install it yourself as:
 ```ruby
 2.6.5 :001 > require "ocean_names"
  => true
-2.6.5 :002 > Ocean::Names.reverse_geocode(lng: 0, lat: 0)
+2.6.5 :002 > OceanNames.reverse_geocode(lng: 0, lat: 0)
  => {"name"=>"South Atlantic Ocean", "lng"=>-18.80876715914, "lat"=>-33.73239551445, "min_lng"=>-69.60083675371, "min_lat"=>-60, "max_lng"=>20.00904913827, "max_lat"=>0.07510554798, "area"=>40501812}
 2.6.5 :003 > OceanNames.reverse_geocode(lng: -18, lat: -33)
  => {"name"=>"South Atlantic Ocean", "lng"=>-18.80876715914, "lat"=>-33.73239551445, "min_lng"=>-69.60083675371, "min_lat"=>-60, "max_lng"=>20.00904913827, "max_lat"=>0.07510554798, "area"=>40501812}
