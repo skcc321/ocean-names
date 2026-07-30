@@ -44,7 +44,17 @@ module OceanNames
     File.expand_path("../data/water.json", File.dirname(__FILE__))
   end
 
+  # The parsed dataset is roughly 22 MB / 430k Ruby objects and is cached for
+  # the lifetime of the process. Callers must treat it as immutable.
   def self.data
     @data ||= Oj.load(File.read(file))
+  end
+
+  # Parse the dataset up front. Call this at boot (for example from a Rails
+  # initializer) so the cost is paid once during startup rather than by an
+  # unlucky request, and so forked servers can share the pages copy-on-write.
+  def self.load!
+    data
+    true
   end
 end

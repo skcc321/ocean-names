@@ -35,5 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec_junit_formatter", "~> 0.4.1"
   spec.add_development_dependency "simplecov", "~> 0.17.1"
-  spec.add_development_dependency "pry", "~> 0.12.2"
+  spec.add_development_dependency "pry", ">= 0.14"
 end

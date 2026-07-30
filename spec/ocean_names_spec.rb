@@ -8,6 +8,17 @@ RSpec.describe OceanNames, :aggregate_failures do
   end
 
   describe "#reverse_geocode" do
+    it "does not mutate the cached dataset" do
+      point = { lng: 32.875131, lat: 45.958505 }
+
+      described_class.reverse_geocode(**point)
+      before = Oj.dump(described_class.data)
+
+      50.times { described_class.reverse_geocode(**point) }
+
+      expect(Oj.dump(described_class.data)).to eq(before)
+    end
+
     it "detects Pacific Ocean" do
       true_points = [
         { lng: -142.579988, lat: -24.756693 },
@@ -103,6 +114,30 @@ RSpec.describe OceanNames, :aggregate_failures do
           "name" => "Irish Sea and St. George's Channel",
         })
       end
+    end
+  end
+
+  describe OceanNames::Polygon do
+    it "leaves the points array it was given untouched" do
+      points = [[0.0, 0.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0]]
+
+      described_class.new(points).contains?(lat: 5.0, lng: 5.0)
+
+      expect(points).to eq([[0.0, 0.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0]])
+    end
+
+    it "treats an open ring as closed" do
+      open_ring = [[0.0, 0.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0]]
+      closed_ring = open_ring + [[0.0, 0.0]]
+
+      expect(described_class.new(open_ring).contains?(lat: 5.0, lng: 5.0))
+        .to eq(described_class.new(closed_ring).contains?(lat: 5.0, lng: 5.0))
+    end
+
+    it "reports points outside the ring" do
+      points = [[0.0, 0.0], [10.0, 0.0], [10.0, 10.0], [0.0, 10.0]]
+
+      expect(described_class.new(points).contains?(lat: 50.0, lng: 50.0)).to be false
     end
   end
 end

@@ -2,9 +2,12 @@
 
 module OceanNames
   class Polygon
+    # +points+ is a ring of [lng, lat] pairs. It need not be explicitly closed:
+    # #contains? seeds +last_point+ with the final point, so the closing edge
+    # is always walked. Treat +points+ as read-only; it is a slice of the
+    # shared OceanNames.data cache.
     def initialize(points)
       @points = points
-      @points << points[0] if points[0] != points[-1]
     end
 
     def contains?(lat:, lng:)
